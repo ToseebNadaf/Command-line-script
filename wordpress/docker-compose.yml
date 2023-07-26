@@ -1,0 +1,31 @@
+# docker-compose.yml
+version: "2.2"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_DATABASE: mywordpressdb
+      MYSQL_USER: mywordpressuser
+      MYSQL_PASSWORD: mywordpresspassword
+
+  wordpress:
+    build: .
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8080:80"  # Change the port mapping to use 8080 on the host
+    links:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: mywordpressuser
+      WORDPRESS_DB_PASSWORD: mywordpresspassword
+      WORDPRESS_DB_NAME: mywordpressdb
+
+volumes:
+  db_data:
+  wordpress_data:
