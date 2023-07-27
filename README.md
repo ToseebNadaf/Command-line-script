@@ -20,7 +20,7 @@ Before using this script, Please confirm you have the following installed on you
 
     ```bash
     git clone https://github.com/ToseebNadaf/Command-line-script.git
-    cd wordpress
+    cd Command-line-script/wordpress/
     ```
 2. Change the permission to make the Python script executable:
     ```bash
