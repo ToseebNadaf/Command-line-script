@@ -23,7 +23,15 @@ def install_package(package_name):
 
 def create_wordpress_site(site_name):
     try:
-        subprocess.check_call(["docker", "run", "-d", "--name", site_name, "-p", "80:80", "wordpress"])
+        # Set the SITE_NAME environment variable to be used in the docker-compose.yml
+        os.environ["SITE_NAME"] = site_name
+
+        # Build the custom WordPress image based on the Dockerfile
+        subprocess.check_call(["docker", "build", "-t", "wordpress", "."])
+
+        # Start the services defined in the docker-compose.yml
+        subprocess.check_call(["docker-compose", "up", "-d"])
+
         print("WordPress site '{}' created successfully.".format(site_name))
     except subprocess.CalledProcessError:
         print("Failed to create the WordPress site. Please check the installation and try again.")

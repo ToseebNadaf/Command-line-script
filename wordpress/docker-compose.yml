@@ -13,7 +13,8 @@ services:
       MYSQL_PASSWORD: mywordpresspassword
 
   wordpress:
-    build: .
+    image: wordpress  # Use the custom image created from the Dockerfile
+    container_name: ${SITE_NAME}  # This will take the container name from the environment variable SITE_NAME
     volumes:
       - wordpress_data:/var/www/html
     ports:
